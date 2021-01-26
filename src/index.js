@@ -1,6 +1,7 @@
 import './sass/styles.scss';
-import fetchArticles from './js/fetch-articles';
+import newsService from './js/service';
 import updateArticlesMarkup from './js/update-articles-markup';
+import LoadMoreBtn from './js/loadMoreBtn';
 import refs from './js/refs';
 
 // const options = {
@@ -18,12 +19,33 @@ import refs from './js/refs';
 //   .then(res => res.json())
 //   .then(data => console.log(data));
 
-refs.form.addEventListener('submit', event => {
+// console.log(new LoadMoreBtn('button[data-action="load-more"]'));
+const loadmoreBtn = new LoadMoreBtn('button[data-action="load-more"]');
+refs.form.addEventListener('submit', searchFormSubmitHandler);
+
+loadmoreBtn.refs.button.addEventListener('click', fetchArticles);
+
+function searchFormSubmitHandler(event) {
   event.preventDefault();
   const form = event.currentTarget;
-  const inputValue = form.elements.query.value;
+  newsService.query = form.elements.query.value;
 
-  refs.ul.innerHTML = '';
+  clearArticlesContainer();
+  newsService.resetPage();
+  fetchArticles();
   form.reset();
-  fetchArticles(inputValue).then(updateArticlesMarkup);
-});
+}
+
+function fetchArticles() {
+  loadmoreBtn.disable();
+
+  newsService.fetchArticles().then(articles => {
+    updateArticlesMarkup(articles);
+    loadmoreBtn.show();
+    loadmoreBtn.enable();
+  });
+}
+
+function clearArticlesContainer() {
+  refs.ul.innerHTML = '';
+}

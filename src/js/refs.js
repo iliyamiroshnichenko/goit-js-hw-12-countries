@@ -1,6 +1,10 @@
-const refs = {
-  ul: document.querySelector('.js-articles'),
-  form: document.querySelector('.js-search-form'),
-};
+const ul = document.querySelector('.js-articles');
+const form = document.querySelector('.js-search-form');
 
-export default refs;
+const spinner = document.querySelector('#spinner');
+
+export default {
+  ul,
+  form,
+  spinner,
+};
