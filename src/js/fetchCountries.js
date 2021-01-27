@@ -6,5 +6,5 @@ export default function fetchCountries(searchQuery) {
     .then(data => {
       return data;
     })
-    .catch(error => console.log(error));
+    .catch(err => console.log(err));
 }
