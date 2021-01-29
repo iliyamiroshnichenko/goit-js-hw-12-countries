@@ -5,13 +5,17 @@ import addMarkup from './js/add-markup';
 import debounce from 'lodash.debounce';
 
 refs.countryInput.addEventListener('input', debounce(countryInputHandler, 500));
-refs.countryInput.addEventListener('focus', clearCountryInput);
 
 function countryInputHandler(event) {
-  fetchCountries(event.target.value).then(countries => {
-    refs.markup.innerHTML = '';
-    addMarkup(countries);
-  });
+  fetchCountries(event.target.value)
+    .then(countries => {
+      refs.markup.innerHTML = '';
+      addMarkup(countries);
+    })
+    .catch(error => {
+      return;
+    })
+    .finally(clearCountryInput(event));
 }
 
 function clearCountryInput(event) {

@@ -9,9 +9,9 @@ export default {
       delay: 3000,
     });
   },
-  nothingFoundError() {
+  badRequest(err) {
     error({
-      text: 'Nothing found :( Try again!',
+      text: err,
       delay: 3000,
     });
   },

@@ -1,10 +1,12 @@
+import notification from './notifications';
+
 export default function fetchCountries(searchQuery) {
   const url = `https://restcountries.eu/rest/v2/name/${searchQuery}`;
 
   return fetch(url)
-    .then(res => res.json())
-    .then(data => {
-      return data;
+    .then(response => {
+      if (response.ok) return response.json();
+      throw new Error('Error Fetching data');
     })
-    .catch(err => console.log(err));
+    .catch(error => notification.badRequest(error));
 }
