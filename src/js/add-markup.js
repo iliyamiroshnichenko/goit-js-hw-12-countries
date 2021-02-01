@@ -4,10 +4,11 @@ import oneCountry from '../templates/one-country.hbs';
 import notification from './notifications';
 
 export default function addMarkup(countries) {
-  if (!countries.length === undefined) return;
+  if (!countries) return;
   if (countries.length === 1) {
     const markup = oneCountry(countries);
     refs.markup.insertAdjacentHTML('beforeend', markup);
+    refs.countryInput.value = '';
     return;
   }
   if (countries.length >= 2 && countries.length <= 10) {

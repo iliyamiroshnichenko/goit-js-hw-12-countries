@@ -14,10 +14,5 @@ function countryInputHandler(event) {
     })
     .catch(error => {
       return;
-    })
-    .finally(clearCountryInput(event));
-}
-
-function clearCountryInput(event) {
-  event.target.value = '';
+    });
 }

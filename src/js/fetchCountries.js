@@ -1,4 +1,5 @@
 import notification from './notifications';
+import refs from './refs';
 
 export default function fetchCountries(searchQuery) {
   const url = `https://restcountries.eu/rest/v2/name/${searchQuery}`;
@@ -8,5 +9,8 @@ export default function fetchCountries(searchQuery) {
       if (response.ok) return response.json();
       throw new Error('Error Fetching data');
     })
-    .catch(error => notification.badRequest(error));
+    .catch(error => {
+      refs.countryInput.value = '';
+      notification.badRequest(error);
+    });
 }
